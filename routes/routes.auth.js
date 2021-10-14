@@ -1,11 +1,11 @@
 const AuthController = require('../controller/auth.controller');
 
 exports.routes = (app) => {
-    app.post('/admin/login',[
+    app.post('/auth/login',[
         AuthController.login
     ]);
 
-    app.post('/admin/register', [
+    app.post('/auth/register', [
         AuthController.register
     ])
 }
