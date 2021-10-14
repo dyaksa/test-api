@@ -35,17 +35,6 @@ exports.register = () => {
     ]
 }
 
-exports.visitor = () => {
-    return [
-        body('name').exists().notEmpty(),
-        body('ktp_id').exists().notEmpty(),
-        body('age').exists().notEmpty(),
-        body('phone').exists().notEmpty(),
-        body('date_of_birth').exists().notEmpty(),
-        body('status').exists().notEmpty()
-    ]
-}
-
 exports.validate = (req,res,next) => {
     const errors = validationResult(req);
     if(errors.isEmpty()) return next();

@@ -1,14 +1,18 @@
 const Visitor = require('../schema/visitor.model');
+const cloudinry = require('../services/cloudinry');
 
 exports.create = async (req,res,next) => {
     try {
         if(req.files.images !== undefined){
             const images = await Promise.all(req.files.images.map(async (image) => {
+                const path = await cloudinry.uploader.upload(image.path);
+                console.log(image);
                 return {
                     name: image.originalname,
-                    path: image.path
+                    path: path.secure_url
                 }
             }));
+            req.body.images_path = JSON.stringify(images);
         }
         const createdVisitor = await Visitor.create(req.body);
         return res.status(201).send({
