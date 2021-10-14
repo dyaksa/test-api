@@ -24,7 +24,7 @@ const Visitor = new Schema({
         required: true,
     },
     status: {
-        type: String,
+        type: Boolean,
         required: true
     },
     images_path: {
@@ -34,4 +34,4 @@ const Visitor = new Schema({
     }
 })
 
-module.exports = mongoose.model('Visitor', )
+module.exports = mongoose.model('Visitor', Visitor);
