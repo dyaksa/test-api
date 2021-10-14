@@ -11,6 +11,8 @@ exports.routes = (app) => {
 
     app.post('/auth/register', [
         AuthMiddleware.validJWTNeeded,
+        Validator.register(),
+        Validator.validate,
         AuthController.register
     ]);
 

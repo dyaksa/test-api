@@ -1,10 +1,13 @@
 const VisitorController = require('../controller/visitor.controller');
 const upload = require('../middleware/upload.middleware');
 const AuthMiddleware = require('../middleware/auth.middleware');
+const ValidatorMiddleware = require('../middleware/validator.middleware');
 
 exports.routes = (app) => {
     app.post('/visitor/create', [
         AuthMiddleware.validJWTNeeded,
+        ValidatorMiddleware.visitor(),
+        ValidatorMiddleware.validate,
         upload.uploadImage,
         VisitorController.create
     ]);

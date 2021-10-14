@@ -19,6 +19,33 @@ exports.login = () => {
     ]
 }
 
+exports.register = () => {
+    return [
+        body('email').exists().notEmpty().custom(async (email, {req}) => {
+            const user = await User.findOne({email: email});
+            if(user) return Promise.reject('email has been registered');
+            return true
+        }),
+        body('username').exists().notEmpty().custom(async (username, {req}) => {
+            const user = await User.findOne({username: username });
+            if(user) return Promise.reject('username has been registered');
+            return true;
+        }),
+        body('password').notEmpty().exists()
+    ]
+}
+
+exports.visitor = () => {
+    return [
+        body('name').notEmpty().exists(),
+        body('ktp_id').notEmpty().exists(),
+        body('age').notEmpty().exists(),
+        body('phone').notEmpty().exists(),
+        body('date_of_birth').notEmpty().exists(),
+        body('status').notEmpty().exists()
+    ]
+}
+
 exports.validate = (req,res,next) => {
     const errors = validationResult(req);
     if(errors.isEmpty()) return next();
